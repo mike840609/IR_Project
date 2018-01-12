@@ -29,11 +29,33 @@ python main.py
   "text": "The single greatest Witch Hunt in American history continues. There was no collusion, everybody including the Dems knows there was no collusion, &amp; yet on and on it goes. Russia &amp; the world is laughing at the stupidity they are witnessing. Republicans should finally take control!",
   "created_at": "Wed Jan 10 15:14:15 +0000 2018",
   "id_str": "951109942685126656",
-  "text_filtered": "the single greatest witch hunt in american history continues. there was no collusion  everybody including the dems knows there was no collusion   amp  yet on and on it goes. russia  amp  the world is laughing at the stupidity they are witnessing. republicans should finally take control!",
+  "text_filtered": "the single greatest witch hunt in american history continues. there was no collusion  everybody including the dems knows there was no collusion   amp  yet on and on it goes. russia  amp  the world is laughing
+at the stupidity they are witnessing. republicans should finally take control!",
   "lemma_arr": [
     "single",
     "greatest",
-    "witch"
+    "witch",
+    "hunt",
+    "american",
+    "history",
+    "continues",
+    "collusion",
+    "everybody",
+    "including",
+    "dems",
+    "know",
+    "collusion",
+    "amp",
+    "go",
+    "russia",
+    "amp",
+    "world",
+    "laughing",
+    "stupidity",
+    "witnessing",
+    "republican",
+    "finally",
+    "control"
   ]
 }
 ```
