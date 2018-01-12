@@ -42,6 +42,8 @@ class Formatter:
             text = post["text"].lower()
 
             text = re.sub('[^a-zA-Z]+', ' ', text)
+            # print(text)
+            self.posts_dict[key]["text"]
             text_arr = text.split()
             
             #  stopword operation 
