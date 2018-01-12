@@ -20,8 +20,8 @@ class Formatter:
         self.wnl = WordNetLemmatizer()
 
     def genarate_dict(self):
-        # with open("StaticDoc/trump_simple.json", 'r') as f:
-        with open("StaticDoc/trump_simple_test.json", 'r') as f:
+        with open("StaticDoc/trump_simple.json", 'r') as f:
+        # with open("StaticDoc/trump_simple_test.json", 'r') as f:
             posts = json.load(f)
         
         #  convert to  {id : dict } dict 
@@ -41,15 +41,15 @@ class Formatter:
 
             # text = post["text"].encode('utf-8').lower()
             text = post["text"].lower()
-
+            
+            # filter url && special character
             text = re.sub(r"http\S+", "", text)
+            text = re.sub('[^a-zA-Z0-9-_!?.]', ' ', text)
 
-            print(text)
+            self.posts_dict[key]["text_filtered"] = text
+            # print(text + "\n")
 
             text = re.sub('[^a-zA-Z]+', ' ', text)
-            
-            print ("\n")
-            self.posts_dict[key]["text"]
             text_arr = text.split()
             
             #  stopword operation 
@@ -64,8 +64,8 @@ class Formatter:
                 text_arr[idx] = after_stm
 
             #  add to dict
-            self.posts_dict[key]["stem_arr"] = text_arr
-            self.posts_dict[key]["af_text"] = text
+            self.posts_dict[key]["lemma_arr"] = text_arr
+            
     
     def saveToPickle(self):
         pickle.dump(self.posts_dict , open("posts_dict.p","wb"))

@@ -17,10 +17,10 @@ def main():
     formatter = Formatter()
     posts_dict = formatter.getPosts_dict()
     
-    # print (json.dumps(posts_dict["1"], indent=2))
-    # print (json.dumps(posts_dict["2"], indent=2))
-    # print (json.dumps(posts_dict["3"], indent=2))
-    # print (len(posts_dict))
+    print (json.dumps(posts_dict["1"], indent=2))
+    print (json.dumps(posts_dict["2"], indent=2))
+    print (json.dumps(posts_dict["3"], indent=2))
+    print (len(posts_dict))
     # '''
 
     # cluster_ope = Cluster()
