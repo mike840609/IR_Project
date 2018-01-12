@@ -8,16 +8,12 @@ import sys
 
 def main():
     
-    # formatter = Formatter('StaticDoc/trump_simple.json')
-    formatter = Formatter('StaticDoc/trump_simple_test.json')
-    # formatter.tokenize()
-    # formatter.saveToPickle()
-    formatter.loadPickle()
+    formatter = Formatter()
     posts_dict = formatter.getPosts_dict()
-    
 
-    print (json.dumps(posts_dict, indent=2))
-    # print (json.dumps(formatter.getPosts_dict(), indent=2))
+    # print (json.dumps(posts_dict, indent=2))
+
+    print (len(posts_dict))
 
 
 

@@ -1,4 +1,5 @@
 import sys
+import os
 import re
 import json
 import pickle
@@ -9,35 +10,33 @@ from nltk.stem import WordNetLemmatizer
 
 class Formatter:
 
-    stopWord_list = []
+    def __init__(self ):
+        #  { id : dict }  user dictionary 
+        self.posts_dict = {}
+        self.term_dictionay = {}
+        self.stopWord_list = []
 
-    #  { id : dict }  user dictionary 
-    posts_dic = {}
-    term_dictionay = {}
+        self.stemmer = PorterStemmer()
+        self.wnl = WordNetLemmatizer()
 
-    def __init__(self , json_path = None):
-        with open(json_path, 'r') as f:
+    def genarate_dict(self):
+        with open("StaticDoc/trump_simple.json", 'r') as f:
             posts = json.load(f)
         
         #  convert to  {id : dict } dict 
         for idx , post in enumerate( posts ) :
-            self.posts_dic[str(idx+1)] = post
+            self.posts_dict[str(idx+1)] = post
     
-        # print (json.dumps(self.posts_dic , indent=4))   
         # print (self.posts_dic['1']['text']) 
 
         #  stop word array
         stop_temp = open('StaticDoc/stopList.txt').read()
         self.stopWord_list = stop_temp.lower().split()
 
-    
-    stemmer = PorterStemmer()
-    wnl = WordNetLemmatizer()
-
     #  tokenization
     def tokenize(self):
 
-        for key , post in  self.posts_dic.items() : 
+        for key , post in  self.posts_dict.items() : 
 
             # text = post["text"].encode('utf-8').lower()
             text = post["text"].lower()
@@ -57,18 +56,31 @@ class Formatter:
                 text_arr[idx] = after_stm
 
             #  add to dict
-            self.posts_dic[key]["stem_arr"] = text_arr
-
+            self.posts_dict[key]["stem_arr"] = text_arr
     
     def saveToPickle(self):
-        pickle.dump(self.posts_dic , open("posts_dict.p","wb"))
+        pickle.dump(self.posts_dict , open("posts_dict.p","wb"))
     
     def loadPickle(self):
-        self.posts_dic = pickle.load(open("posts_dict.p", 'rb'))
+        self.posts_dict = pickle.load(open("posts_dict.p", 'rb'))
 
-    def genDictionary (self):
-        pass
+    # def genDictionary (self):
+    #     pass
 
     def getPosts_dict(self):
-        return self.posts_dic
+        if os.path.isfile("posts_dict.p"):
+
+            print("load posts dict")
+            self.loadPickle()
+            
+        else:
+            
+            print("create posts dict")
+            self.genarate_dict()
+            self.tokenize()
+            self.saveToPickle()
+        
+        return self.posts_dict
+            
+        
         
