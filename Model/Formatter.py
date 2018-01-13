@@ -44,7 +44,10 @@ class Formatter:
             
             # filter url && special character
             text = re.sub(r"http\S+", "", text)
-            text = re.sub('[^a-zA-Z0-9-_!?.]', ' ', text)
+            
+            # add whitespace in front of special
+            text = re.sub('(?<=\w)([!?,.])', r' \1', text)
+            text = re.sub('[^a-zA-Z0-9-_!?.,]', ' ', text)
 
             self.posts_dict[key]["text_filtered"] = text
             # print(text + "\n")
