@@ -41,10 +41,16 @@ class Formatter:
 
             # text = post["text"].encode('utf-8').lower()
             text = post["text"].lower()
+
+            text = text.replace('.....', ' ')
+            text = text.replace('....', ' ')
+            text = text.replace('...', ' ')
+            text = text.replace('...', ' ')
+            text = text.replace('..', ' ')
             
             # filter url && special character
             text = re.sub(r"http\S+", "", text)
-            
+
             # add whitespace in front of special
             text = re.sub('(?<=\w)([!?,.])', r' \1', text)
             text = re.sub('[^a-zA-Z0-9-_!?.,]', ' ', text)
