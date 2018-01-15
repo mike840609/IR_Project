@@ -6,7 +6,7 @@ import sys
 
 
 import plotly 
-
+import pickle
 
 # pip freeze > requirements.txt
 
@@ -26,9 +26,11 @@ def main():
     # print (json.dumps(posts_dict["6"], indent=2))
 
 
-    cluster_ope = Cluster()
-    cluster_ope.kmeans(posts_dict)
+    # cluster_ope = Cluster()
+    # cluster_ope.kmeans(posts_dict)
 
+    rss = pickle.load(open("rss_score.p", 'rb'))
+    print (rss)
     
 
 
