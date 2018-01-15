@@ -19,22 +19,16 @@ def main():
 
     
     print (json.dumps(posts_dict["1"], indent=2))
-    print (json.dumps(posts_dict["2"], indent=2))
-    print (json.dumps(posts_dict["3"], indent=2))
-    print (json.dumps(posts_dict["4"], indent=2))
-    print (json.dumps(posts_dict["5"], indent=2))
-    print (json.dumps(posts_dict["6"], indent=2))
-
-    # for k , v in posts_dict.items():
-    #     if("..." in v["text_filtered"]):
-    #         print (k)
-    #         print (v)
+    # print (json.dumps(posts_dict["2"], indent=2))
+    # print (json.dumps(posts_dict["3"], indent=2))
+    # print (json.dumps(posts_dict["4"], indent=2))
+    # print (json.dumps(posts_dict["5"], indent=2))
+    # print (json.dumps(posts_dict["6"], indent=2))
 
 
-    # print (len(posts_dict))
-    # '''
+    cluster_ope = Cluster()
+    cluster_ope.kmeans(posts_dict)
 
-    # cluster_ope = Cluster()
     
 
 
