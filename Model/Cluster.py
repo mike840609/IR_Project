@@ -3,6 +3,7 @@
 from __future__ import print_function
 import sys 
 import sklearn
+import sys
 
 from sklearn import cluster, datasets, metrics
 from sklearn.datasets import make_blobs
@@ -13,7 +14,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
-
+from scipy.spatial.distance import cdist
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
@@ -32,27 +33,39 @@ class Cluster :
         
     def kmeans(self , posts_dict):
 
-        # documents = ["This little kitty came to play when I was eating at a restaurant.",
-        #      "Merley has the best squooshy kitten belly.",
-        #      "Google Translate app is incredible.",
-        #      "If you open 100 tab in google you get a smiley face.",
-        #      "Best cat photo I've ever taken.",
-        #      "Climbing ninja cat.",
-        #      "Impressed with google map feedback.",
-        #      "Key promoter extension for Google Chrome."]
-
         documents = []
         for k,v in posts_dict.items():
             documents.append(v["text_filtered"])
 
-        print(len(documents))
+        # print(len(documents))
 
         vectorizer = TfidfVectorizer(stop_words='english' , min_df=10)
         X = vectorizer.fit_transform(documents)
 
+<<<<<<< HEAD
         score = [] 
         #K = [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100] 
 
+=======
+        
+        # model = KMeans(n_clusters=true_k, init='k-means++', max_iter=500, n_init=1)
+        # model.fit(X)
+        
+        x = np.array(list(documents))
+
+        # test 
+        # Ks = range (1,9)
+        # km = [KMeans(n_clusters = i, init='k-means++', max_iter=300, n_init=1) for i in Ks]
+        # score = [abs(km[i].fit(X).score(X)) for i in range(len(km))]
+
+        score = [] 
+        K = [10,20,30,40,50,60,70,80,90,100] 
+        for k in K: 
+            KMeanModel = KMeans(n_clusters=k, init='k-means++', max_iter=300)
+            KMeanModel.fit(X)
+            score.append(KMeanModel.inertia_)
+
+>>>>>>> e062c78ee4f5bc0034934c3af4731d56de3082c4
 
         model_13 = KMeans(n_clusters=13, init='k-means++', max_iter= sys.maxsize, random_state= 5 , n_jobs=-1).fit(X)
         pk.dump(model_13 ,  open("model_13.p","wb"))
