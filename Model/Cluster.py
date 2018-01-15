@@ -1,12 +1,8 @@
 # Silhouette analysis
 # http://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_analysis.html
 from __future__ import print_function
-
+import sys 
 import sklearn
-
-import plotly.plotly as py
-import plotly.graph_objs as go
-from plotly import tools
 
 from sklearn import cluster, datasets, metrics
 from sklearn.datasets import make_blobs
@@ -22,7 +18,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.metrics import adjusted_rand_score
-
+# import pickle as pk
 
 class Cluster :
 
@@ -48,27 +44,31 @@ class Cluster :
 
         print(len(documents))
 
-        vectorizer = TfidfVectorizer(stop_words='english')
+        vectorizer = TfidfVectorizer(stop_words='english' , min_df=10)
         X = vectorizer.fit_transform(documents)
-        
-        print (X)
 
-        true_k = 2
-        model = KMeans(n_clusters=true_k, init='k-means++', max_iter=500, n_init=1)
-        model.fit(X)
-        
+        score = [] 
+        #K = [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100] 
+        K = list(range(2,61))
+        for k in K: 
+            KMeanModel_1 = KMeans(n_clusters=k, init='k-means++', max_iter=300, random_state= 5,tol=1e-1 , n_jobs=-1).fit(X)
 
-        # test 
-        Ks = range (1,9)
-        km = [KMeans(n_clusters = i, init='k-means++', max_iter=300, n_init=1) for i in Ks]
-        score = [abs(km[i].fit(X).score(X)) for i in range(len(km))]
+            KMeanModel_2 = KMeans(n_clusters=k, init='k-means++', max_iter=300 , random_state=7 , tol=1e-1, n_jobs=-1).fit(X)
+
+            rss = min(KMeanModel_1.inertia_ , KMeanModel_2.inertia_)
+            score.append(rss)
+
+            print(str(k) + " : " + str(rss))
 
         print (score)
-        plt.plot(Ks, score ,'bx-')
+        plt.plot(K, score ,'bx-')
         plt.xlabel('k')
         plt.ylabel('Distortion')
         plt.title('The Elbow Method showing the optimal k')
+        plt.xticks(range(2,61,1))
+        plt.savefig('final.png')
         plt.show()
+        
 
 
         # feature terms 
